@@ -1,13 +1,20 @@
 # query.py
 
-from dotenv import load_dotenv
+import streamlit as st
 import os
+from dotenv import load_dotenv
 from anthropic import Anthropic
 from embed_store import build_vectorstore
 
 load_dotenv()
 
-client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+def get_api_key():
+    try:
+        return st.secrets["ANTHROPIC_API_KEY"]
+    except (KeyError, FileNotFoundError):
+        return os.getenv("ANTHROPIC_API_KEY")
+
+client = Anthropic(api_key=get_api_key())
 
 
 def decompose_question(question):
