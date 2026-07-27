@@ -76,7 +76,7 @@ def ask(vectorstore, question):
 
     response = client.messages.create(
         model="claude-sonnet-4-6",
-        max_tokens=800,
+        max_tokens=500,
         messages=[{"role": "user", "content": prompt}]
     )
 
